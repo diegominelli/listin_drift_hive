@@ -1,11 +1,31 @@
-class Product {
+import 'package:hive/hive.dart';
+
+import 'product.dart';
+
+@HiveType(typeId: 0)
+class Product extends HiveObject {
+  @HiveField(0)
   String id;
+
+  @HiveField(1)
   String name;
+
+  @HiveField(2)
   String obs;
+
+  @HiveField(3)
   String category;
+
+  @HiveField(4)
   bool isKilograms;
+
+  @HiveField(5)
   double? price;
+
+  @HiveField(6)
   double? amount;
+
+  @HiveField(7)
   bool isPurchased;
 
   Product({
@@ -20,14 +40,14 @@ class Product {
   });
 
   Product.fromMap(Map<String, dynamic> map)
-      : id = map["id"],
-        name = map["name"],
-        obs = map["obs"],
-        category = map["category"],
-        isKilograms = map["isKilograms"],
-        isPurchased = map["isPurchased"],
-        price = map["price"],
-        amount = map["amount"];
+    : id = map["id"],
+      name = map["name"],
+      obs = map["obs"],
+      category = map["category"],
+      isKilograms = map["isKilograms"],
+      isPurchased = map["isPurchased"],
+      price = map["price"],
+      amount = map["amount"];
 
   Map<String, dynamic> toMap() {
     return {

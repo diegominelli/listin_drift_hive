@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:listin_drift_hive/products/model/product.dart';
 
 class ProductsBoxHandler {
   late Box _box;
@@ -10,4 +11,6 @@ class ProductsBoxHandler {
   Future<void> closeBox() async {
     return await _box.close();
   }
+
+  insertProduct(Product product) {}
 }
