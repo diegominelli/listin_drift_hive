@@ -1,10 +1,12 @@
 import "package:flutter/material.dart";
+import 'package:listin_drift_hive/products/data/products_box_handler.dart';
 import 'package:uuid/uuid.dart';
 import '../../model/product.dart';
 
 showProductAddEditProductModal({
   required BuildContext context,
   required Function onRefresh,
+  required ProductsBoxHandler productsBoxHandler,
   Product? product,
 }) {
   // Labels à serem mostradas no Modal
@@ -51,9 +53,7 @@ showProductAddEditProductModal({
     isScrollControlled: true,
     // Define que as bordas verticais serão arredondadas
     shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        top: Radius.circular(28),
-      ),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
     ),
     builder: (context) {
       return SingleChildScrollView(
@@ -84,9 +84,7 @@ showProductAddEditProductModal({
                       icon: Icon(Icons.shopping_basket),
                     ),
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const SizedBox(height: 16),
                   TextFormField(
                     controller: amountController,
                     keyboardType: const TextInputType.numberWithOptions(
@@ -97,9 +95,7 @@ showProductAddEditProductModal({
                       icon: Icon(Icons.numbers),
                     ),
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const SizedBox(height: 16),
                   TextFormField(
                     controller: priceController,
                     keyboardType: const TextInputType.numberWithOptions(
@@ -115,14 +111,10 @@ showProductAddEditProductModal({
                       priceController.text = value.replaceAll(",", ".");
                     },
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const SizedBox(height: 16),
                   CheckboxListTile(
                     value: isKilograms,
-                    title: const Text(
-                      "Dividir por quilogramas?",
-                    ),
+                    title: const Text("Dividir por quilogramas?"),
                     onChanged: (value) {
                       setState(() {
                         isKilograms = !isKilograms;
@@ -131,9 +123,7 @@ showProductAddEditProductModal({
                   ),
                   CheckboxListTile(
                     value: isPurchased,
-                    title: const Text(
-                      "Estou comprando agora",
-                    ),
+                    title: const Text("Estou comprando agora"),
                     onChanged: (value) {
                       setState(() {
                         isPurchased = !isPurchased;
@@ -171,9 +161,7 @@ showProductAddEditProductModal({
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
-                              height: 16,
-                            ),
+                            const SizedBox(height: 16),
                             TextFormField(
                               controller: categoryController,
                               keyboardType: TextInputType.name,
@@ -197,9 +185,7 @@ showProductAddEditProductModal({
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -209,9 +195,7 @@ showProductAddEditProductModal({
                         },
                         child: Text(labelSkipButton),
                       ),
-                      const SizedBox(
-                        width: 16,
-                      ),
+                      const SizedBox(width: 16),
                       ElevatedButton(
                         onPressed: () {
                           // Criar um objeto Produto com as infos
@@ -235,25 +219,28 @@ showProductAddEditProductModal({
                           }
 
                           if (amountController.text != "") {
-                            produto.amount =
-                                double.parse(amountController.text);
+                            produto.amount = double.parse(
+                              amountController.text,
+                            );
                             if (product != null) {
-                              product.amount =
-                                  double.parse(amountController.text);
+                              product.amount = double.parse(
+                                amountController.text,
+                              );
                             }
                           }
 
                           if (priceController.text != "") {
                             produto.price = double.parse(priceController.text);
                             if (product != null) {
-                              product.price =
-                                  double.parse(priceController.text);
+                              product.price = double.parse(
+                                priceController.text,
+                              );
                             }
                           }
 
                           // Salvar
                           if (product == null) {
-                            // TODO - CRUD Produtos: Salvar Produto
+                            productsBoxHandler.insertProduct(produto);
                           } else {
                             // TODO - CRUD Produtos: Editar Produto
                           }

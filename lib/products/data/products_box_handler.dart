@@ -12,5 +12,11 @@ class ProductsBoxHandler {
     return await _box.close();
   }
 
-  insertProduct(Product product) {}
+  Future<int> insertProduct(Product product) async {
+    return await _box.add(product);
+  }
+
+  List<Product> getProducts() {
+    return _box.values.map((elemento) => elemento as Product).toList();
+  }
 }
