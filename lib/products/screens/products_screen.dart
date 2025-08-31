@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:listin_drift_hive/products/data/products_box_handler.dart';
 import 'package:listin_drift_hive/products/helpers/enum_order.dart';
 import 'package:listin_drift_hive/products/screens/widgets/product_add_edit_modal.dart';
 
@@ -26,10 +27,19 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
   bool isGroupedByCategory = false;
 
+  ProductsBoxHandler _productsBoxHandler = ProductsBoxHandler();
+
   @override
   void initState() {
+    _productsBoxHandler.openBox(widget.listin.id);
     // TODO - CRUD Produtos: adicionar o refresh aqui
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _productsBoxHandler.closeBox();
+    super.dispose();
   }
 
   @override
