@@ -53,6 +53,18 @@ class AppDatabase extends _$AppDatabase {
 
     return temp;
   }
+
+  Future<bool> updateListin(Listin listin) async {
+    return await update(listiTable).replace(
+      ListiTableCompanion(
+        id: Value(int.parse(listin.id)),
+        name: Value(listin.name),
+        obs: Value(listin.obs),
+        dateCreate: Value(listin.dateCreate),
+        dateUpdate: Value(listin.dateUpdate),
+      ),
+    );
+  }
 }
 
 LazyDatabase _openConnection() {
