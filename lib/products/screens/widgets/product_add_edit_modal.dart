@@ -242,7 +242,7 @@ showProductAddEditProductModal({
                           if (product == null) {
                             productsBoxHandler.insertProduct(produto);
                           } else {
-                            // TODO - CRUD Produtos: Editar Produto
+                            productsBoxHandler.updateProduct(product);
                           }
 
                           // Atualizar página
