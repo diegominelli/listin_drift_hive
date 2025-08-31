@@ -12,7 +12,7 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController _emailController = TextEditingController(
-    text: "ricarth.lima@alura.com.br",
+    text: "diego.minelli@7solutions.com.br",
   );
   final TextEditingController _senhaController = TextEditingController(
     text: "123321",
