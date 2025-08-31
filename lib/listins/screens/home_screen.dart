@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     _appDatabase = AppDatabase();
 
-    // TODO: Ao implementar os Listins, adicionar o refresh aqui
+    refresh();
     super.initState();
   }
 
@@ -106,18 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
   refresh() async {
     // Basta alimentar essa variável com Listins que, quando o método for
     // chamado, a tela sera reconstruída com os itens.
-    List<Listin> listaListins = [];
-
-    //TODO - CRUD Listin: remover código mockado.
-    listaListins.add(
-      Listin(
-        id: "L01",
-        name: "Feira do mês",
-        obs: "Para compras de reabastecimento mensais.",
-        dateCreate: DateTime.now(),
-        dateUpdate: DateTime.now(),
-      ),
-    );
+    List<Listin> listaListins = await _appDatabase.getListins();
 
     setState(() {
       listListins = listaListins;

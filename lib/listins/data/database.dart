@@ -33,9 +33,27 @@ class AppDatabase extends _$AppDatabase {
     );
     return await into(listiTable).insert(novaLinha);
   }
-}
 
-// Remove this empty class, as the generated companion will be used.
+  Future<List<Listin>> getListins() async {
+    List<Listin> temp = [];
+
+    List<ListiTableData> listData = await select(listiTable).get();
+
+    for (ListiTableData row in listData) {
+      temp.add(
+        Listin(
+          id: row.id.toString(),
+          name: row.name,
+          obs: row.obs,
+          dateCreate: row.dateCreate,
+          dateUpdate: row.dateUpdate,
+        ),
+      );
+    }
+
+    return temp;
+  }
+}
 
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
