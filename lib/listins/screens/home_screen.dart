@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:listin_drift_hive/_core/services/dio.service.dart';
 import 'package:listin_drift_hive/authentication/models/mock_user.dart';
 import 'package:listin_drift_hive/listins/data/database.dart';
 import 'package:listin_drift_hive/listins/screens/widgets/home_drawer.dart';
@@ -19,6 +21,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<Listin> listListins = [];
   late AppDatabase _appDatabase;
+
+  DioService _dioService = DioService();
 
   @override
   void initState() {
@@ -159,7 +163,10 @@ class _HomeScreenState extends State<HomeScreen> {
     refresh();
   }
 
-  saveOnServer() async {}
+  saveOnServer() async {
+    await _dioService.saveLocalToServer(_appDatabase);
+  }
+
   syncWithServer() async {}
   clearServerData() async {}
 }
