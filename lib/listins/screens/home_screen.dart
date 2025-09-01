@@ -38,7 +38,50 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: HomeDrawer(user: widget.user),
-      appBar: AppBar(title: const Text("Minhas listas")),
+      appBar: AppBar(
+        title: const Text("Minhas listas"),
+        actions: [
+          PopupMenuButton(
+            icon: Icon(Icons.cloud),
+            onSelected: (value) {
+              if (value == "SAVE") {
+                saveOnServer();
+              }
+              if (value == "SYNC") {
+                syncWithServer();
+              }
+              if (value == "CLEAR") {
+                clearServerData();
+              }
+            },
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  value: "SAVE",
+                  child: ListTile(
+                    leading: Icon(Icons.upload),
+                    title: Text("Salvar na nuvem"),
+                  ),
+                ),
+                PopupMenuItem(
+                  value: "SYNC",
+                  child: ListTile(
+                    leading: Icon(Icons.download),
+                    title: Text("Sincronizar da nuvem"),
+                  ),
+                ),
+                PopupMenuItem(
+                  value: "CLEAR",
+                  child: ListTile(
+                    leading: Icon(Icons.delete),
+                    title: Text("Remover dados na nuvem"),
+                  ),
+                ),
+              ];
+            },
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showAddModal();
@@ -104,8 +147,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   refresh() async {
-    // Basta alimentar essa variável com Listins que, quando o método for
-    // chamado, a tela sera reconstruída com os itens.
     List<Listin> listaListins = await _appDatabase.getListins();
 
     setState(() {
@@ -117,4 +158,8 @@ class _HomeScreenState extends State<HomeScreen> {
     await _appDatabase.deleteListin(int.parse(model.id));
     refresh();
   }
+
+  saveOnServer() async {}
+  syncWithServer() async {}
+  clearServerData() async {}
 }

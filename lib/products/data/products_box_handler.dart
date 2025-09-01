@@ -12,8 +12,8 @@ class ProductsBoxHandler {
     return await _box.close();
   }
 
-  Future<int> insertProduct(Product product) async {
-    return await _box.add(product);
+  Future<int> addProduct(Product product) async {
+    return _box.add(product);
   }
 
   List<Product> getProducts() {
