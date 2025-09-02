@@ -43,4 +43,8 @@ class DioService {
       }
     }
   }
+
+  Future<void> clearServerData() async {
+    await _dio.delete("${url}listins.json");
+  }
 }
