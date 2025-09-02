@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:listin_drift_hive/_core/services/dio.service.dart';
+import 'package:listin_drift_hive/_core/services/dio_service.dart';
 import 'package:listin_drift_hive/authentication/models/mock_user.dart';
 import 'package:listin_drift_hive/listins/data/database.dart';
 import 'package:listin_drift_hive/listins/screens/widgets/home_drawer.dart';
@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Listin> listListins = [];
   late AppDatabase _appDatabase;
 
-  DioService _dioService = DioService();
+  final DioService _dioService = DioService();
 
   @override
   void initState() {
@@ -167,6 +167,9 @@ class _HomeScreenState extends State<HomeScreen> {
     await _dioService.saveLocalToServer(_appDatabase);
   }
 
-  syncWithServer() async {}
+  syncWithServer() async {
+    await _dioService.getDataFromServer(_appDatabase);
+  }
+
   clearServerData() async {}
 }
