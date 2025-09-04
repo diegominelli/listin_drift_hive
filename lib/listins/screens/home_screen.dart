@@ -164,7 +164,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   saveOnServer() async {
-    await _dioService.saveLocalToServer(_appDatabase);
+    _dioService.saveLocalToServer(_appDatabase).then((error) {
+      if (error != null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(error)));
+      }
+    });
   }
 
   syncWithServer() async {
