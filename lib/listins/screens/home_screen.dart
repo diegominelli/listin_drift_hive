@@ -1,3 +1,4 @@
+// ignore: unused_import
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:listin_drift_hive/_core/services/dio_service.dart';

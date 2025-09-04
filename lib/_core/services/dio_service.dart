@@ -2,14 +2,15 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:listin_drift_hive/_core/data/local_data_handler.dart';
+import 'package:listin_drift_hive/_core/services/dio_endpoints.dart';
 import 'package:listin_drift_hive/_core/services/dio_interceptor.dart';
 import 'package:listin_drift_hive/listins/data/database.dart';
 
 class DioService {
   final Dio _dio = Dio(
     BaseOptions(
-      baseUrl: "https://flutter-dio-c89a9-default-rtdb.firebaseio.com/",
-      contentType: 'application/json; charset=utf-8',
+      baseUrl: DioEndpoints.devBaseUrl,
+      contentType: Headers.jsonContentType,
       responseType: ResponseType.json,
       connectTimeout: const Duration(seconds: 5),
       receiveTimeout: const Duration(seconds: 3),
@@ -26,7 +27,10 @@ class DioService {
     );
 
     try {
-      await _dio.put("listins.json", data: json.encode(localData['listins']));
+      await _dio.put(
+        DioEndpoints.listins,
+        data: json.encode(localData['listins']),
+      );
     } on DioException catch (e) {
       if (e.response != null && e.response!.data != null) {
         return e.response!.data.toString();
@@ -40,7 +44,7 @@ class DioService {
 
   getDataFromServer(AppDatabase appDatabase) async {
     Response response = await _dio.get(
-      "listins.json",
+      DioEndpoints.listins,
       queryParameters: {"orderBy": '"name"', "startAt": 0},
     );
 
@@ -73,6 +77,6 @@ class DioService {
   }
 
   Future<void> clearServerData() async {
-    await _dio.delete("listins.json");
+    await _dio.delete(DioEndpoints.listins);
   }
 }
